@@ -33,6 +33,7 @@ server.route({
     handler: function(request, reply){
         var mode = encodeURIComponent(request.params.mode);
         var pin = encodeURIComponent(request.params.pin);
+        toggleGpioPin(mode, pin);
         reply({mode: mode, pin: pin}).code(200);
     }
 });
