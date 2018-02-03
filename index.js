@@ -22,10 +22,9 @@ function toggleGpioPin(mode, pinNumber, value){
     } else {
         gpioPin.writeSync(0);
     }
-    //gpioPin.unexport();
 }
 
-server.connection({port: port, host: '0.0.0.0'});
+server.connection({port: port, host: '0.0.0.0', routes: {cors: true}});
 
 server.route({
     method: 'GET',
