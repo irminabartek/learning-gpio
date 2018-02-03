@@ -1,0 +1,23 @@
+{
+  "name": "learning-gpio",
+  "version": "1.0.0",
+  "description": "\"# learning-gpio\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/irminabartek/learning-gpio.git"
+  },
+  "author": "Bartlomiej B",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/irminabartek/learning-gpio/issues"
+  },
+  "homepage": "https://github.com/irminabartek/learning-gpio#readme",
+  "dependencies": {
+    "hapi": "16.6.2",
+    "onoff": "1.1.9"
+  }
+}
