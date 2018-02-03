@@ -7,7 +7,7 @@ var Gpio = require('onoff').Gpio;
 var server = new Hapi.Server();
 var port = 3000;
 
-function toggleGpioPin(mode, pinNumber){
+function toggleGpioPin(mode, pinNumber, value){
     var direction;
     if(mode === 'write'){
         direction = 'out';
@@ -18,22 +18,23 @@ function toggleGpioPin(mode, pinNumber){
     }
     var gpioPin = new Gpio(pinNumber, direction);
     if (gpioPin.readSync() === 0) {
-        gpioPin.writeSync(1);
+        gpioPin.writeSync(value);
     } else {
         gpioPin.writeSync(0);
     }
-    gpioPin.unexport();
+    //gpioPin.unexport();
 }
 
-server.connection({port: port, host: 'localhost'});
+server.connection({port: port, host: '0.0.0.0'});
 
 server.route({
     method: 'GET',
-    path: '/api/gpio/{mode}/{pin}',
+    path: '/api/gpio/{mode}/{pin}/{value}',
     handler: function(request, reply){
         var mode = encodeURIComponent(request.params.mode);
         var pin = encodeURIComponent(request.params.pin);
-        toggleGpioPin(mode, pin);
+        var value = parseInt(encodeURIComponent(request.params.value));
+	toggleGpioPin(mode, pin, value);
         reply({mode: mode, pin: pin}).code(200);
     }
 });
