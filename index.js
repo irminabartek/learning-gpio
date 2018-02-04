@@ -8,7 +8,7 @@ var port = 3000;
 var host = '0.0.0.0';
 
 function toggleGpioPin(pinNumber){
-    var gpioPin = new Gpio(pinNumber, "out");
+    var gpioPin = new Gpio(pinNumber, "read");
     if (gpioPin.readSync() === 0) {
         gpioPin.writeSync(1);
         return 1;
@@ -26,7 +26,7 @@ server.route({
     path: '/api/gpio/{pin}',
     handler: function(request, reply){
         var pin = encodeURIComponent(request.params.pin);
-        console.log("gpio endpoint called with pin number ", pin);
+        console.log("GPIO endpoint called with pin number ", pin);
         var result = toggleGpioPin(pin);
         reply({value: result}).code(200);
     }
