@@ -4,8 +4,8 @@ var Hapi = require("hapi");
 var onoff = require("onoff");
 var Gpio = require('onoff').Gpio;
 
-var server = new Hapi.Server();
 var port = 3000;
+var host = '0.0.0.0';
 
 function toggleGpioPin(mode, pinNumber, value){
     var direction;
@@ -24,7 +24,8 @@ function toggleGpioPin(mode, pinNumber, value){
     }
 }
 
-server.connection({port: port, host: '0.0.0.0', routes: {cors: true}});
+var server = new Hapi.Server();
+server.connection({port: port, host: host, routes: {cors: true}});
 
 server.route({
     method: 'GET',
@@ -33,7 +34,7 @@ server.route({
         var mode = encodeURIComponent(request.params.mode);
         var pin = encodeURIComponent(request.params.pin);
         var value = parseInt(encodeURIComponent(request.params.value));
-	toggleGpioPin(mode, pin, value);
+	    toggleGpioPin(mode, pin, value);
         reply({mode: mode, pin: pin}).code(200);
     }
 });
