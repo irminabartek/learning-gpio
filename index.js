@@ -20,8 +20,8 @@ server.route({
   path: '/api/gpio/{pin}/{value}',
   handler: function (request, reply) {
     var pin = encodeURIComponent(request.params.pin);
-    var value = encodeURIComponent(request.params.value);
-    console.log("GPIO endpoint called with pin number ", pin);
+    var value = parseInt(encodeURIComponent(request.params.value));
+    console.log("GPIO endpoint called with pin number", pin);
     var result = setGpioValue(pin, value);
     reply({ value: result }).code(200);
   }
